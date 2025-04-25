@@ -55,3 +55,60 @@
   </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SITsense Table Login</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 30px; }
+    input, button { margin-top: 10px; padding: 10px; width: 300px; }
+  </style>
+</head>
+<body>
+  <h2>Login to Reserve Table</h2>
+  <input type="text" id="name" placeholder="Name" required />
+  <input type="text" id="studentId" placeholder="Student ID" required />
+  <input type="email" id="email" placeholder="Email" required />
+  <input type="number" id="tableNumber" placeholder="Table Number" required />
+  <button onclick="login()">Login</button>
+
+  <h2>Logout</h2>
+  <input type="text" id="logoutId" placeholder="Student ID" required />
+  <input type="number" id="logoutTable" placeholder="Table Number" required />
+  <button onclick="logout()">Logout</button>
+
+  <script>
+    const scriptURL = '<<YOUR_GOOGLE_SCRIPT_WEBAPP_URL>>'; // เปลี่ยนในภายหลัง
+
+    function login() {
+      const data = {
+        action: 'login',
+        name: document.getElementById('name').value,
+        studentId: document.getElementById('studentId').value,
+        email: document.getElementById('email').value,
+        tableNumber: document.getElementById('tableNumber').value
+      };
+
+      fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+      }).then(res => res.text()).then(alert);
+    }
+
+    function logout() {
+      const data = {
+        action: 'logout',
+        studentId: document.getElementById('logoutId').value,
+        tableNumber: document.getElementById('logoutTable').value
+      };
+
+      fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+      }).then(res => res.text()).then(alert);
+    }
+  </script>
+</body>
+</html>
